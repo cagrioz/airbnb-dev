@@ -124,7 +124,7 @@ const Header = ({ placeholder = undefined }: { placeholder?: string }): JSX.Elem
                         />
                     </div>
 
-                    <div className="flex">
+                    <div className="flex pt-4">
                         <button onClick={resetInput} className="flex-grow text-gray-500">
                             Cancel
                         </button>
