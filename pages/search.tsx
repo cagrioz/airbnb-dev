@@ -4,18 +4,9 @@ import Header from "../components/Header";
 
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
+import Map from "../components/Map";
 
-interface SearchItem {
-    img: string;
-    location: string;
-    title: string;
-    description: string;
-    star: number;
-    price: string;
-    total: string;
-    lang?: number | string;
-    lat?: number | string;
-}
+import { SearchItem, Coord } from "../interfaces";
 
 const Search = ({ searchResults }: { searchResults: SearchItem[] }): JSX.Element => {
     const router = useRouter();
@@ -66,6 +57,14 @@ const Search = ({ searchResults }: { searchResults: SearchItem[] }): JSX.Element
                             />
                         ))}
                     </div>
+                </section>
+
+                <section className="hidden xl:inline-flex xl:min-w-[600px]">
+                    {/* Only send long and lat props of Searchresults */}
+                    <Map
+                        searchResults={searchResults}
+                        coords={searchResults.map(({ lat, long }) => ({ latitude: lat, longitude: long })) as Coord[]}
+                    />
                 </section>
             </main>
 
