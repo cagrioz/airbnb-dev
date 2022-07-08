@@ -3,8 +3,21 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 import { format } from "date-fns";
+import InfoCard from "../components/InfoCard";
 
-const Search = (): JSX.Element => {
+interface SearchItem {
+    img: string;
+    location: string;
+    title: string;
+    description: string;
+    star: number;
+    price: string;
+    total: string;
+    lang?: number | string;
+    lat?: number | string;
+}
+
+const Search = ({ searchResults }: { searchResults: SearchItem[] }): JSX.Element => {
     const router = useRouter();
 
     // Destructuring the router query object
@@ -23,7 +36,7 @@ const Search = (): JSX.Element => {
                 }`}
             />
 
-            <main className="flex">
+            <main className="flex mb-10">
                 <section className="flex-grow pt-14 px-6">
                     <p className="text-xs">
                         300+ Stays - {range} - for {noOfGuests} number of guests
@@ -38,6 +51,21 @@ const Search = (): JSX.Element => {
                         <p className="button">Rooms and Beds</p>
                         <p className="button">More filters</p>
                     </div>
+
+                    <div className="flex flex-col">
+                        {searchResults.map(({ img, title, description, location, price, star, total }) => (
+                            <InfoCard
+                                key={img}
+                                img={img}
+                                title={title}
+                                description={description}
+                                location={location}
+                                price={price}
+                                star={star}
+                                total={total}
+                            />
+                        ))}
+                    </div>
                 </section>
             </main>
 
@@ -47,3 +75,14 @@ const Search = (): JSX.Element => {
 };
 
 export default Search;
+
+// Typescript, server-side rendering
+export async function getServerSideProps(context: any) {
+    const searchResults: SearchItem[] = await fetch("https://links.papareact.com/isz").then((res) => res.json());
+
+    return {
+        props: {
+            searchResults,
+        },
+    };
+}

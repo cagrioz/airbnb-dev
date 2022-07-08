@@ -22,6 +22,11 @@ const Header = ({ placeholder = undefined }: { placeholder?: string }): JSX.Elem
 
     const onChangeGuests = (e: any) => {
         setNoOfGuests(+e?.target?.value ?? 1);
+
+        // Safely update the query object
+        if (+e?.target?.value < 1) {
+            setNoOfGuests(1);
+        }
     };
 
     const searchRooms = (e: any) => {
@@ -39,7 +44,7 @@ const Header = ({ placeholder = undefined }: { placeholder?: string }): JSX.Elem
     };
 
     const searchRoomsOnEnter = (e: any) => {
-        if (e?.keyCode === 13) {
+        if (e?.keyCode === 13 || e.which === 13) {
             searchRooms(e);
         }
     };
