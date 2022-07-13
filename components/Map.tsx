@@ -44,10 +44,10 @@ const Map = ({ coords, searchResults }: { coords: Coord[]; searchResults: Search
 
                     {selectedLocation === result && (
                         <Popup
-                            latitude={result.lat as number}
-                            longitude={result.long as number}
                             closeButton={true}
                             closeOnClick={false}
+                            latitude={result.lat as number}
+                            longitude={result.long as number}
                             onClose={() => setSelectedLocation({})}
                         >
                             <h3>{result.title}</h3>
