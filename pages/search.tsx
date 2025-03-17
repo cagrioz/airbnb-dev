@@ -78,12 +78,6 @@ export default Search;
 export async function getServerSideProps(context: any) {
     let searchResults: SearchItem[] = [];
 
-    try {
-        const res = await fetch("https://links.papareact.com/isz");
-        if (!res.ok) throw new Error("API request failed");
-        searchResults = await res.json();
-    } catch (error) {
-        console.error("Failed to fetch search results. Using fallback data.", error);
         
         // Fallback data
         searchResults = [
@@ -132,7 +126,6 @@ export async function getServerSideProps(context: any) {
                 "lat": 51.579245
             }
         ];
-    }
 
     return {
         props: {
